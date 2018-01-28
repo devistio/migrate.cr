@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/vladfaust/migrate.cr">
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/doc.js"></script>
+  <title>Migrate::Migrator - github.com/vladfaust/migrate.cr</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/migrate.cr/Migrate" data-name="migrate">
+      <a href="../Migrate.html">Migrate</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="github.com/vladfaust/migrate.cr/Migrate/Migrator" data-name="migrate::migrator">
+      <a href="../Migrate/Migrator.html">Migrator</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Migrate::Migrator
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Migrate/Migrator.html">Migrate::Migrator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L8" target="_blank">migrate/migrator.cr</a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>Constant Summary</h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="MIGRATION_FILE_REGEX">
+        <strong>MIGRATION_FILE_REGEX</strong> = <code><span class="s">/(?&lt;version&gt;\d+)(_(?&lt;name&gt;\w+))?\.sql/</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28db%3ADB%3A%3ADatabase%2Clogger%3ALogger%3F%3Dnil%2Cdir%3AString%3DFile.join%28%26quot%3Bdb%26quot%3B%2C%26quot%3Bmigrations%26quot%3B%29%2Ctable%3AString%3D%26quot%3Bversion%26quot%3B%2Ccolumn%3AString%3D%26quot%3Bversion%26quot%3B%29-class-method" class="signature"><strong>.new</strong>(db : DB::Database, logger : Logger? = <span class="n">nil</span>, dir : String = <span class="t">File</span>.join(<span class="s">&quot;db&quot;</span>, <span class="s">&quot;migrations&quot;</span>), table : String = <span class="s">&quot;version&quot;</span>, column : String = <span class="s">&quot;version&quot;</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#current_version-instance-method" class="signature"><strong>#current_version</strong></a>
+        
+          <div class="summary"><p>Return actual DB version.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#down-instance-method" class="signature"><strong>#down</strong></a>
+        
+          <div class="summary"><p>Migrate one step down.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#next_version-instance-method" class="signature"><strong>#next_version</strong></a>
+        
+          <div class="summary"><p>Return the next version as defined in migrations dir.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#previous_version-instance-method" class="signature"><strong>#previous_version</strong></a>
+        
+          <div class="summary"><p>Return previous version as defined in migrations dir.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#redo-instance-method" class="signature"><strong>#redo</strong></a>
+        
+          <div class="summary"><p>Revert all migrations and then migrate to current version.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reset-instance-method" class="signature"><strong>#reset</strong></a>
+        
+          <div class="summary"><p>Revert all migrations.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to%28target_version%3AInt32%7CInt64%29-instance-method" class="signature"><strong>#to</strong>(target_version : Int32 | Int64)</a>
+        
+          <div class="summary"><p>Migrate to specific version.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_latest-instance-method" class="signature"><strong>#to_latest</strong></a>
+        
+          <div class="summary"><p>Apply all the migrations from current version to the last one.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#up-instance-method" class="signature"><strong>#up</strong></a>
+        
+          <div class="summary"><p>Migrate one step up.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(db:DB::Database,logger:Logger?=nil,dir:String=File.join(&amp;quot;db&amp;quot;,&amp;quot;migrations&amp;quot;),table:String=&amp;quot;version&amp;quot;,column:String=&amp;quot;version&amp;quot;)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(db : DB::Database, logger : Logger? = <span class="n">nil</span>, dir : String = <span class="t">File</span>.join(<span class="s">&quot;db&quot;</span>, <span class="s">&quot;migrations&quot;</span>), table : String = <span class="s">&quot;version&quot;</span>, column : String = <span class="s">&quot;version&quot;</span>)
+
+        <a class="method-permalink" href="#new%28db%3ADB%3A%3ADatabase%2Clogger%3ALogger%3F%3Dnil%2Cdir%3AString%3DFile.join%28%26quot%3Bdb%26quot%3B%2C%26quot%3Bmigrations%26quot%3B%29%2Ctable%3AString%3D%26quot%3Bversion%26quot%3B%2Ccolumn%3AString%3D%26quot%3Bversion%26quot%3B%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L11" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="current_version-instance-method">
+      <div class="signature">
+        
+        def <strong>current_version</strong>
+
+        <a class="method-permalink" href="#current_version-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Return actual DB version.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="down-instance-method">
+      <div class="signature">
+        
+        def <strong>down</strong>
+
+        <a class="method-permalink" href="#down-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Migrate one step down.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L64" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="next_version-instance-method">
+      <div class="signature">
+        
+        def <strong>next_version</strong>
+
+        <a class="method-permalink" href="#next_version-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Return the next version as defined in migrations dir.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L31" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="previous_version-instance-method">
+      <div class="signature">
+        
+        def <strong>previous_version</strong>
+
+        <a class="method-permalink" href="#previous_version-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Return previous version as defined in migrations dir.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L42" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="redo-instance-method">
+      <div class="signature">
+        
+        def <strong>redo</strong>
+
+        <a class="method-permalink" href="#redo-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Revert all migrations and then migrate to current version.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L75" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reset-instance-method">
+      <div class="signature">
+        
+        def <strong>reset</strong>
+
+        <a class="method-permalink" href="#reset-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Revert all migrations.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L70" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to(target_version:Int32|Int64)-instance-method">
+      <div class="signature">
+        
+        def <strong>to</strong>(target_version : Int32 | Int64)
+
+        <a class="method-permalink" href="#to%28target_version%3AInt32%7CInt64%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Migrate to specific version.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L82" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_latest-instance-method">
+      <div class="signature">
+        
+        def <strong>to_latest</strong>
+
+        <a class="method-permalink" href="#to_latest-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Apply all the migrations from current version to the last one.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L53" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="up-instance-method">
+      <div class="signature">
+        
+        def <strong>up</strong>
+
+        <a class="method-permalink" href="#up-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Migrate one step up.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/migrate.cr/blob/329b0240a1e5b2e893ce8fcbb950b01d55f94e19/src/migrate/migrator.cr#L58" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
